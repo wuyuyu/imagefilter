@@ -20,7 +20,7 @@ public class App extends JavaCVHelper{
 
          image = opencv_imgcodecs.imread(f.getAbsolutePath());
         image = filterGrayscale(image);
-       outputDir = new File("output");
+        outputDir = new File("output");
         outputFile = new File(outputDir, "result2.jpg");
         opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
 
