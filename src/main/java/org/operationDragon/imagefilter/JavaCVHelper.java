@@ -22,7 +22,9 @@ public class JavaCVHelper {
         opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
     }
 
-    public Mat filterBlur(Mat image) {
+
+
+    public static Mat filterBlur(Mat image) {
         int size = 3;
         Mat result = image.clone();
         GaussianBlur(image, result, new Size(size, size), 0);
@@ -37,7 +39,7 @@ public class JavaCVHelper {
         return result;
     }
 
-    public Mat filterGrayscale(Mat image) {
+    public static Mat filterGrayscale(Mat image) {
         Mat result = new Mat(image.rows(), image.cols(), CvType.CV_8UC3);
         cvtColor(image, result, Imgproc.COLOR_RGB2GRAY);
         return result;
