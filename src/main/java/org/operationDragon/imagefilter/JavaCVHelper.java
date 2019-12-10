@@ -31,7 +31,7 @@ public class JavaCVHelper {
         return result;
     }
 
-    public Mat filterDilate(Mat image) {
+    public static Mat filterDilate(Mat image) {
         int size = 8;
         Mat result = image.clone();
         Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));

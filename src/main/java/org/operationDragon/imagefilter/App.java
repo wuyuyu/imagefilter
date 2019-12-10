@@ -1,20 +1,14 @@
 package org.operationDragon.imagefilter;
 
-import org.bytedeco.opencv.global.opencv_imgcodecs;
-import org.bytedeco.opencv.opencv_core.Mat;
-
-import java.io.File;
-
 public class App extends JavaCVHelper{
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        FilterBlackWrite bw = new FilterBlackWrite();
-        bw.process();
+        new FilterBlackWhite("dragonmignon.jpeg");
+        new FilterBlackWhite("dragon3.jpeg");
+        new FilterBlackWhite("dragon.jpeg");
 
-
-
-
-
-
+        // TODO gérer exception qd le fichier n'existe pas :(
+        new FilterBlur("dragonmignon.jpeg");
+        new FilterDilatation("dragonmignon");
     }
 }

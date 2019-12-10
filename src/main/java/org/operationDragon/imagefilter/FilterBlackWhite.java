@@ -5,19 +5,16 @@ import org.bytedeco.opencv.opencv_core.Mat;
 
 import java.io.File;
 
-public class FilterBlur extends JavaCVHelper{
+public class FilterBlackWhite extends JavaCVHelper {
 
-
-    public FilterBlur(String imageName) {
+    public FilterBlackWhite(String imageName) {
         File img = new File(imageName);
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
         String [] name = imageName.split("\\.");
-        image = filterBlur(image);
+        image = filterGrayscale(image);
         File outputDir = new File("output");
-        String outputName = name[0] + "_blur." + name[1];
+        String outputName = name[0] + "_bw." + name[1];
         File outputFile = new File(outputDir, outputName);
         opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
     }
-
-
 }
