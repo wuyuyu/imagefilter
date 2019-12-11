@@ -1,9 +1,6 @@
 package org.operationDragon.imagefilter;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.*;
 
 import java.io.File;
 
@@ -42,6 +39,11 @@ public class App extends JavaCVHelper{
         Options options = new Options();
         options.addOption("i",true,"input directory");
         options.addOption("o",true,"output directory");
+        options.addOption("h",false,"help");
+
+
+
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse( options, args);
 
@@ -56,12 +58,20 @@ public class App extends JavaCVHelper{
         CommandLineParser parser1 = new DefaultParser();
         CommandLine cmd1 = parser1.parse(options,args);
 
-        String outputArg = "caca"; // Valeur par défaut du répertoire de sortie
+        String outputArg = "output"; // Valeur par défaut du répertoire de sortie
         if(cmd1.hasOption("o")){
             outputArg =cmd1.getOptionValue("o");
         }
 
+
         File output = new File(outputArg);
+
+
+        if(cmd1.hasOption("h")){
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("App", "", options, "", true);
+            return;
+        }
 
         String filterArg = "blackWhite";
         Filter filter = null;
