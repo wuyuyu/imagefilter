@@ -10,8 +10,9 @@ import java.io.File;
 public class App extends JavaCVHelper{
     /**
      * filters a document set into a file
-     * @param input
-     * @param filter
+     * @param input : directory where input images are stored
+     * @param filter : filter to apply
+     * @param outputDirectory : directory where to put filtered images
      */
     static void applyFilterOnImages (File inputDirectory, Filter filter, File outputDirectory ){
 
