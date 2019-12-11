@@ -17,18 +17,21 @@ public class FilterBlur implements Filter{
      */
     @Override
     public Mat process(String imageName, File outputDirectory) throws FilterException{
-        File img = new File(String.valueOf(imageName));
-        Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
+        File img = new File(imageName);
+        Mat image = opencv_imgcodecs.imread(imageName);
+        String outputPath = outputDirectory.getAbsolutePath();
 
         try {
             int size = 3;
             Mat result = image.clone();
             GaussianBlur(image, result, new Size(size, size), 0);
-            String [] name = imageName.split("\\.");
-            File outputDir = new File("output");
+
+            /* Enregistrement dans fichier de sortie */
+            String [] name = img.getName().split("\\.");
             String outputName = name[0] + "_blur." + name[1];
-            File outputFile = new File(outputDir, outputName);
-            opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
+            File outputFile = new File(outputPath, outputName);
+            System.out.println(outputFile);
+            opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
 
             return result;
         }catch (Exception e){

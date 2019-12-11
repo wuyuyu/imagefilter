@@ -62,7 +62,7 @@ public class App extends JavaCVHelper{
 
         File output = new File(outputArg);
 
-        String filterArg = "dilatation";
+        String filterArg = "blackWhite";
         Filter filter = null;
 /**
  *  Allows to identifies if the user has correctly entered the proposed program command

@@ -20,16 +20,18 @@ public class FilterBlackWhite implements Filter{
     public Mat process(String imageName, File outputDirectory) throws FilterException {
         File img = new File(String.valueOf(imageName));
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
+        String outputPath = outputDirectory.getAbsolutePath();
 
         try {
             Mat result = new Mat(image.rows(), image.cols(), CvType.CV_8UC3);
             cvtColor(image, result, Imgproc.COLOR_RGB2GRAY);
-            String [] name = imageName.split("\\.");
-            File outputDir = new File("output");
-            String outputName = name[0] + "_bw." + name[1];
-            File outputFile = new File(outputDir, outputName);
-            opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
 
+            /* Enregistrement dans fichier de sortie */
+            String [] name = img.getName().split("\\.");
+            String outputName = name[0] + "_bw." + name[1];
+            File outputFile = new File(outputPath, outputName);
+            System.out.println(outputFile);
+            opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
 
             return result;
         }catch (Exception e){

@@ -21,8 +21,8 @@ public class FilterDilatation implements Filter{
     @Override
     public Mat process(String imageName, File outputDirectory) throws FilterException{
 
-        File file = new File(imageName);
-        System.out.println(file);
+        File img = new File(imageName);
+        System.out.println(img);
         Mat image = opencv_imgcodecs.imread(imageName);
         String outputPath = outputDirectory.getAbsolutePath();
         try {
@@ -30,11 +30,14 @@ public class FilterDilatation implements Filter{
             Mat result = image.clone();
             Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
             dilate(image, result, element);
-            String [] name = file.getName().split("\\.");
+
+            /* Enregistrement dans fichier de sortie */
+            String [] name = img.getName().split("\\.");
             String outputName = name[0] + "_dilate." + name[1];
             File outputFile = new File(outputPath, outputName);
             System.out.println(outputFile);
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
+
             return result;
 
         }catch (Exception e){
