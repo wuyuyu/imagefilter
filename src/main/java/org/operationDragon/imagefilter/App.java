@@ -1,5 +1,9 @@
 package org.operationDragon.imagefilter;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
 import org.bytedeco.opencv.global.opencv_imgcodecs;
 import org.bytedeco.opencv.opencv_core.Mat;
 
@@ -9,7 +13,6 @@ import java.io.IOException;
 public class App extends JavaCVHelper{
 
     static void filterDossier (File input, Filter filter ){
-
 
 
         for (File f: input.listFiles()){
@@ -24,13 +27,23 @@ public class App extends JavaCVHelper{
                 }
             }
         }
-
     }
 
     public static void main(String[] args) throws Exception {
 
+        Options options = new Options();
+        options.addOption("i",true,"input directory");
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse( options, args);
+        String inputArg = "";
 
-        File input = new File("input");
+        if(cmd.hasOption("i")){
+            inputArg = cmd.getOptionValue("i");
+
+        }
+
+
+        File input = new File(inputArg);
 
         String filterArg = "dilatation";
         Filter filter = null;
@@ -58,7 +71,7 @@ public class App extends JavaCVHelper{
             blur.process("dragon3.jpeg");
 
             FilterDilatation dilatation2 = new FilterDilatation();
-            dilatation2.process("image ");
+            dilatation2.process("text ");
 
 
         }catch (FilterException e){
