@@ -27,7 +27,7 @@ public class FilterBlur implements Filter{
 
             return result;
         }catch (Exception e){
-            throw new FilterException("Problème de filtre flou");
+            throw new FilterException("Problème de filtre flou",e);
         }
     }
 

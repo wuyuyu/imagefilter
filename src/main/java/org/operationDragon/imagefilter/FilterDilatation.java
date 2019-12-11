@@ -14,8 +14,11 @@ public class FilterDilatation implements Filter{
 
     @Override
     public Mat process(String imageName) throws FilterException{
-        File img = new File(String.valueOf(imageName));
-        Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
+
+        File file = new File(imageName);
+        System.out.println(file);
+        Mat image = opencv_imgcodecs.imread(imageName);
+
 
 
 
@@ -27,9 +30,11 @@ public class FilterDilatation implements Filter{
             String [] name = imageName.split("\\.");
             File outputDir = new File("output");
             String outputName = name[0] + "_dilate." + name[1];
-            File outputFile = new File(outputDir, outputName);
-            opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
+            File outputFile = new File(outputDir, file.getName());
+            System.out.println(outputFile);
+            opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
             return result;
+
         }catch (Exception e){
             throw new FilterException("Problème de filtre dilatation");
         }

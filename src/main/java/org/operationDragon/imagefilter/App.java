@@ -7,11 +7,46 @@ import java.io.File;
 import java.io.IOException;
 
 public class App extends JavaCVHelper{
+
+    static void filterDossier (File input, Filter filter ){
+
+
+
+        for (File f: input.listFiles()){
+            if(f.getName().endsWith(".jpeg")) {
+                String chemin;
+                chemin = f.getAbsolutePath();
+
+                try {
+                    filter.process(chemin);
+                }catch (Exception e){
+                    e.getMessage();
+                }
+            }
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
 
 
-        File f = new File("imagefilter.log");
-        File image = new File("dragon.jpeg");
+        File input = new File("input");
+
+        String filterArg = "dilatation";
+        Filter filter = null;
+
+        switch (filterArg){
+            case "blur":
+                filter = new FilterBlur();
+                break;
+            case "dilatation":
+                filter = new FilterDilatation();
+                break;
+            case "blackWhite":
+                filter = new FilterBlackWhite();
+                break;
+        }
+        App.filterDossier(input,filter);
 
 
         try{
@@ -23,11 +58,10 @@ public class App extends JavaCVHelper{
             blur.process("dragon3.jpeg");
 
             FilterDilatation dilatation2 = new FilterDilatation();
-            dilatation2.process("dragon");
+            dilatation2.process("image ");
 
 
         }catch (FilterException e){
-
             System.out.println(e.getMessage());
         }
     }
