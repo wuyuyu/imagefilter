@@ -12,6 +12,30 @@ import static org.bytedeco.opencv.global.opencv_imgproc.getStructuringElement;
 
 public class FilterDilatation implements Filter{
 
+    @Override
+    public Mat process(String imageName) throws FilterException{
+        File img = new File(String.valueOf(imageName));
+        Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
+
+
+
+        try {
+            int size = 8;
+            Mat result = image.clone();
+            Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
+            dilate(image, result, element);
+            String [] name = imageName.split("\\.");
+            File outputDir = new File("output");
+            String outputName = name[0] + "_dilate." + name[1];
+            File outputFile = new File(outputDir, outputName);
+            opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
+            return result;
+        }catch (Exception e){
+            throw new FilterException("problem de dilatation");
+        }
+    }
+}
+
     /*
     public FilterDilatation(String imageName) throws FilterException {
         int size = 8;
@@ -28,22 +52,4 @@ public class FilterDilatation implements Filter{
     }
 
      */
-
-
-    @Override
-    public Mat process(Mat imageName) throws FilterException{
-        File img = new File(String.valueOf(imageName));
-        Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
-
-        try {
-            int size = 8;
-            Mat result = image.clone();
-            Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
-            dilate(image, result, element);
-            return result;
-        }catch (Exception e){
-            throw new FilterException("problem de dilatation");
-        }
-    }
-}
 

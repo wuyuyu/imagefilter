@@ -8,35 +8,19 @@ import java.io.IOException;
 
 public class App extends JavaCVHelper{
     public static void main(String[] args) throws Exception {
-        /*
-        FilterDilatation.process("dragon.jpeg");
-        File outputDir = new File("output");
-        String outputName = name[0] + "_dilate." + name[1];
-        File outputFile = new File(outputDir, outputName);
-        opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
 
-         */
 
         File f = new File("imagefilter.log");
+        File image = new File("dragon.jpeg");
 
 
         try{
-            // TODO gérer exception qd le fichier n'existe pas :(
-            new FilterBlur("dragonmignon.jpeg");
-            new FilterBlackWhite("dragonmignon.jpeg");
-            new FilterBlackWhite("dragon3.jpeg");
-            new FilterBlackWhite("dragon.jpeg");
-
             FilterDilatation dilatation1 = new FilterDilatation();
-
-
-            dilatation1.process();
-
-
-
-
-
-
+            dilatation1.process("dragon.jpeg");
+            FilterBlackWhite bw1 = new FilterBlackWhite();
+            bw1.process("dragon2.jpeg");
+            FilterBlur blur = new FilterBlur();
+            blur.process("dragon3.jpeg");
 
         }catch (FilterException e){
 

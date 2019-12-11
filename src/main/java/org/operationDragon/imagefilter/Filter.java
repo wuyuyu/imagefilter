@@ -4,5 +4,5 @@ import org.bytedeco.opencv.opencv_core.Mat;
 
 public interface Filter {
 
-    Mat process (Mat image)throws FilterException;
+    Mat process (String imageName)throws FilterException;
 }
