@@ -8,7 +8,7 @@ import java.io.File;
 public class FilterBlur extends JavaCVHelper{
 
 
-    public FilterBlur(String imageName) {
+    public FilterBlur(String imageName) throws FilterException{
         File img = new File(imageName);
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
         String [] name = imageName.split("\\.");

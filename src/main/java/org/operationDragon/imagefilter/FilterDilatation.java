@@ -10,9 +10,10 @@ import java.io.File;
 import static org.bytedeco.opencv.global.opencv_imgproc.dilate;
 import static org.bytedeco.opencv.global.opencv_imgproc.getStructuringElement;
 
-public class FilterDilatation {
+public class FilterDilatation implements Filter{
 
-    public FilterDilatation(String imageName) {
+    /*
+    public FilterDilatation(String imageName) throws FilterException {
         int size = 8;
         File img = new File(imageName);
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
@@ -26,6 +27,23 @@ public class FilterDilatation {
         opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
     }
 
+     */
 
+
+    @Override
+    public Mat process(Mat imageName) throws FilterException{
+        File img = new File(String.valueOf(imageName));
+        Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
+
+        try {
+            int size = 8;
+            Mat result = image.clone();
+            Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
+            dilate(image, result, element);
+            return result;
+        }catch (Exception e){
+            throw new FilterException("problem de dilatation");
+        }
+    }
 }
 

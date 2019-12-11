@@ -7,7 +7,7 @@ import java.io.File;
 
 public class FilterBlackWhite extends JavaCVHelper {
 
-    public FilterBlackWhite(String imageName) {
+    public FilterBlackWhite(String imageName) throws FilterException {
         File img = new File(imageName);
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
         String [] name = imageName.split("\\.");
