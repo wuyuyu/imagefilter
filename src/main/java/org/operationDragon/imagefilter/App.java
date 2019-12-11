@@ -4,11 +4,8 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
-import org.bytedeco.opencv.global.opencv_imgcodecs;
-import org.bytedeco.opencv.opencv_core.Mat;
 
 import java.io.File;
-import java.io.IOException;
 
 public class App extends JavaCVHelper{
     /**
@@ -16,16 +13,15 @@ public class App extends JavaCVHelper{
      * @param input
      * @param filter
      */
-    static void filterDossier (File input, Filter filter ){
+    static void applyFilterOnImages (File inputDirectory, Filter filter, File outputDirectory ){
 
-
-        for (File f: input.listFiles()){
+        for (File f: inputDirectory.listFiles()){
             if(f.getName().endsWith(".jpeg")) {
                 String chemin;
                 chemin = f.getAbsolutePath();
 
                 try {
-                    filter.process(chemin);
+                    filter.process(chemin, outputDirectory);
                 }catch (Exception e){
                     e.getMessage();
                 }
@@ -44,20 +40,22 @@ public class App extends JavaCVHelper{
  */
         Options options = new Options();
         options.addOption("i",true,"input directory");
+        options.addOption("o",true,"output directory");
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse( options, args);
-        String inputArg = "";
+
+        String inputArg = "input"; // Valeur par défaut du répertoire d'entrée
+
         if(cmd.hasOption("i")){
             inputArg = cmd.getOptionValue("i");
         }
 
         File input = new File(inputArg);
 
-
-        options.addOption("o",true,"output directory");
         CommandLineParser parser1 = new DefaultParser();
         CommandLine cmd1 = parser1.parse(options,args);
-        String outputArg = "";
+
+        String outputArg = "caca"; // Valeur par défaut du répertoire de sortie
         if(cmd1.hasOption("o")){
             outputArg =cmd1.getOptionValue("o");
         }
@@ -80,25 +78,6 @@ public class App extends JavaCVHelper{
                 filter = new FilterBlackWhite();
                 break;
         }
-        App.filterDossier(input,filter);
-
-/**
- * Filters images from their absolute URL
- */
-        try{
-            FilterDilatation dilatation1 = new FilterDilatation();
-            dilatation1.process("dragon.jpeg");
-            FilterBlackWhite bw1 = new FilterBlackWhite();
-            bw1.process("dragon2.jpeg");
-            FilterBlur blur = new FilterBlur();
-            blur.process("dragon3.jpeg");
-
-            FilterDilatation dilatation2 = new FilterDilatation();
-            dilatation2.process("text ");
-
-
-        }catch (FilterException e){
-            System.out.println(e.getMessage());
-        }
+        App.applyFilterOnImages(input,filter, output);
     }
 }

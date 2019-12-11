@@ -2,13 +2,12 @@ package org.operationDragon.imagefilter;
 
 import org.bytedeco.opencv.global.opencv_imgcodecs;
 import org.bytedeco.opencv.opencv_core.Mat;
-import org.bytedeco.opencv.opencv_core.Size;
 import org.opencv.core.CvType;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
 
-import static org.bytedeco.opencv.global.opencv_imgproc.*;
+import static org.bytedeco.opencv.global.opencv_imgproc.cvtColor;
 
 public class FilterBlackWhite implements Filter{
     /**
@@ -18,7 +17,7 @@ public class FilterBlackWhite implements Filter{
      * @throws FilterException
      */
     @Override
-    public Mat process(String imageName) throws FilterException {
+    public Mat process(String imageName, File outputDirectory) throws FilterException {
         File img = new File(String.valueOf(imageName));
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
 

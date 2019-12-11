@@ -19,24 +19,20 @@ public class FilterDilatation implements Filter{
      * @throws FilterException
      */
     @Override
-    public Mat process(String imageName) throws FilterException{
+    public Mat process(String imageName, File outputDirectory) throws FilterException{
 
         File file = new File(imageName);
         System.out.println(file);
         Mat image = opencv_imgcodecs.imread(imageName);
-
-
-
-
+        String outputPath = outputDirectory.getAbsolutePath();
         try {
             int size = 8;
             Mat result = image.clone();
             Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
             dilate(image, result, element);
-            String [] name = imageName.split("\\.");
-            File outputDir = new File("output");
+            String [] name = file.getName().split("\\.");
             String outputName = name[0] + "_dilate." + name[1];
-            File outputFile = new File(outputDir, file.getName());
+            File outputFile = new File(outputPath, outputName);
             System.out.println(outputFile);
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
             return result;
@@ -46,21 +42,4 @@ public class FilterDilatation implements Filter{
         }
     }
 }
-
-    /*
-    public FilterDilatation(String imageName) throws FilterException {
-        int size = 8;
-        File img = new File(imageName);
-        Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
-        Mat result = image;
-        String [] name = imageName.split("\\.");
-        Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
-        dilate(image, result, element);
-        File outputDir = new File("output");
-        String outputName = name[0] + "_dilate." + name[1];
-        File outputFile = new File(outputDir, outputName);
-        opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
-    }
-
-     */
 

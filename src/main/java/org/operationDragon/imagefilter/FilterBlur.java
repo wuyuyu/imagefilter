@@ -3,11 +3,10 @@ package org.operationDragon.imagefilter;
 import org.bytedeco.opencv.global.opencv_imgcodecs;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Size;
-import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
 
-import static org.bytedeco.opencv.global.opencv_imgproc.*;
+import static org.bytedeco.opencv.global.opencv_imgproc.GaussianBlur;
 
 public class FilterBlur implements Filter{
     /**
@@ -17,7 +16,7 @@ public class FilterBlur implements Filter{
      * @throws FilterException
      */
     @Override
-    public Mat process(String imageName) throws FilterException{
+    public Mat process(String imageName, File outputDirectory) throws FilterException{
         File img = new File(String.valueOf(imageName));
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
 
