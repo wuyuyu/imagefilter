@@ -36,14 +36,22 @@ public class App extends JavaCVHelper{
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse( options, args);
         String inputArg = "";
-
         if(cmd.hasOption("i")){
             inputArg = cmd.getOptionValue("i");
-
         }
 
-
         File input = new File(inputArg);
+
+
+        options.addOption("o",true,"output directory");
+        CommandLineParser parser1 = new DefaultParser();
+        CommandLine cmd1 = parser1.parse(options,args);
+        String outputArg = "";
+        if(cmd1.hasOption("o")){
+            outputArg =cmd1.getOptionValue("o");
+        }
+
+        File output = new File(outputArg);
 
         String filterArg = "dilatation";
         Filter filter = null;
