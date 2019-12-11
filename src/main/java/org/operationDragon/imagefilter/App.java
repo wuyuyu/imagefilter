@@ -22,6 +22,10 @@ public class App extends JavaCVHelper{
             FilterBlur blur = new FilterBlur();
             blur.process("dragon3.jpeg");
 
+            FilterDilatation dilatation2 = new FilterDilatation();
+            dilatation2.process("dragon");
+
+
         }catch (FilterException e){
 
             System.out.println(e.getMessage());

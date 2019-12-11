@@ -31,7 +31,7 @@ public class FilterDilatation implements Filter{
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
             return result;
         }catch (Exception e){
-            throw new FilterException("problem de dilatation");
+            throw new FilterException("Problème de filtre dilatation");
         }
     }
 }

@@ -28,7 +28,7 @@ public class FilterBlackWhite implements Filter{
 
             return result;
         }catch (Exception e){
-            throw new FilterException("problem de noir et blanc");
+            throw new FilterException("Problème avec le filtre noir et blanc");
         }
     }
 }
