@@ -12,6 +12,12 @@ import static org.bytedeco.opencv.global.opencv_imgproc.getStructuringElement;
 
 public class FilterDilatation implements Filter{
 
+    /**
+     * This method filters an image by dilating the pixels and stores it in outPut.
+     * @param imageName
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Mat process(String imageName) throws FilterException{
 

@@ -11,6 +11,12 @@ import java.io.File;
 import static org.bytedeco.opencv.global.opencv_imgproc.*;
 
 public class FilterBlackWhite implements Filter{
+    /**
+     * This method is used to filter an image in black and white and store it in the outPut file
+     * @param imageName
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Mat process(String imageName) throws FilterException {
         File img = new File(String.valueOf(imageName));

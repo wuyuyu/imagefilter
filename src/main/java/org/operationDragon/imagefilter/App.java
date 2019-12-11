@@ -11,7 +11,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class App extends JavaCVHelper{
-
+    /**
+     * filters a document set into a file
+     * @param input
+     * @param filter
+     */
     static void filterDossier (File input, Filter filter ){
 
 
@@ -29,8 +33,15 @@ public class App extends JavaCVHelper{
         }
     }
 
+    /**
+     * Principle Method
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
-
+/**
+ *  Allows to have interface in command line to access image folders
+ */
         Options options = new Options();
         options.addOption("i",true,"input directory");
         CommandLineParser parser = new DefaultParser();
@@ -47,7 +58,9 @@ public class App extends JavaCVHelper{
 
         String filterArg = "dilatation";
         Filter filter = null;
-
+/**
+ *  Allows to identifies if the user has correctly entered the proposed program command
+ */
         switch (filterArg){
             case "blur":
                 filter = new FilterBlur();
@@ -61,7 +74,9 @@ public class App extends JavaCVHelper{
         }
         App.filterDossier(input,filter);
 
-
+/**
+ * Filters images from their absolute URL
+ */
         try{
             FilterDilatation dilatation1 = new FilterDilatation();
             dilatation1.process("dragon.jpeg");

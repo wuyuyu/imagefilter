@@ -10,6 +10,12 @@ import java.io.File;
 import static org.bytedeco.opencv.global.opencv_imgproc.*;
 
 public class FilterBlur implements Filter{
+    /**
+     * This method allows to filter an image with a blur and store it in outPut file
+     * @param imageName
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Mat process(String imageName) throws FilterException{
         File img = new File(String.valueOf(imageName));
