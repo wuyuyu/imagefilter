@@ -10,6 +10,7 @@ import java.io.File;
 import static org.bytedeco.opencv.global.opencv_imgproc.cvtColor;
 
 public class FilterBlackWhite implements Filter{
+
     /**
      * This method is used to filter an image in black and white and store it in the outPut file
      * @param imageName
@@ -32,6 +33,9 @@ public class FilterBlackWhite implements Filter{
             File outputFile = new File(outputPath, outputName);
             System.out.println(outputFile);
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
+            LogWriter logger = new LogWriter();
+            logger.logToFile(imageName + " FilterBlackWhite");
+
 
             return result;
         }catch (Exception e){

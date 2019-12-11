@@ -9,6 +9,7 @@ import java.io.File;
 import static org.bytedeco.opencv.global.opencv_imgproc.GaussianBlur;
 
 public class FilterBlur implements Filter{
+
     /**
      * This method allows to filter an image with a blur and store it in outPut file
      * @param imageName
@@ -32,6 +33,8 @@ public class FilterBlur implements Filter{
             File outputFile = new File(outputPath, outputName);
             System.out.println(outputFile);
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
+            LogWriter logger = new LogWriter();
+            logger.logToFile(imageName + " FilterBlur");
 
             return result;
         }catch (Exception e){

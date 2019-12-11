@@ -37,6 +37,8 @@ public class FilterDilatation implements Filter{
             File outputFile = new File(outputPath, outputName);
             System.out.println(outputFile);
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
+            LogWriter logger = new LogWriter();
+            logger.logToFile(imageName + " FilterDilatation");
 
             return result;
 
