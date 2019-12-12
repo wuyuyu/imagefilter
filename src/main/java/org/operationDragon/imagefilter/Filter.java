@@ -9,5 +9,5 @@ import java.io.File;
  */
 public interface Filter {
 
-    Mat process (String imageName, File outputDirectory)throws FilterException;
+    Mat process (String imageName, File outputDirectory,String filename)throws FilterException;
 }

@@ -5,24 +5,40 @@ import org.ini4j.Wini;
 import java.io.File;
 import java.io.IOException;
 
-public class Conf {
+public class Conf{
+    private File input;
+    private File output;
+    private File logFile;
+    private String filters;
 
-    public Conf() {
+    public File getInput() {
+        return input;
     }
 
-    static void sample01(String filename)throws IOException {
+    public File getOutput() {
+        return output;
+    }
+
+    public File getLogFile() {
+        return logFile;
+    }
+
+    public String getFilters() {
+        System.out.println("filtretest="+filters);
+        return filters;
+    }
+
+
+
+    public Conf(String filename) throws IOException {
         System.out.println(filename);
         Wini ini = new Wini(new File(filename));
-        File input = ini.get("Filter", "inputDir", File.class);
-        File output = ini.get("Filter", "outputDir", File.class);
-        File logFile = ini.get("Filter", "logFile", File.class);
-        String filters = ini.get("Filter", "filters", String.class);
-        System.out.println("input="+ input);
-        System.out.println("output="+ output);
-        System.out.println("logfile="+ logFile);
-        System.out.println("filters="+ filters);
-
+        input = ini.get("Filter", "inputDir", File.class);
+        output = ini.get("Filter", "outputDir", File.class);
+        logFile = ini.get("Filter", "logFile", File.class);
+        filters = ini.get("Filter", "filters", String.class);
 
 
     }
+
 }

@@ -6,7 +6,7 @@ import org.reflections.Reflections;
 import java.io.File;
 import java.util.Set;
 
-public class App extends Conf{
+public class App {
 
 
     /**
@@ -15,7 +15,7 @@ public class App extends Conf{
      * @param filter : filter to apply
      * @param outputDirectory : directory where to put filtered images
      */
-    static void applyFilterOnImages (File inputDirectory, Filter filter, File outputDirectory ){
+    static void applyFilterOnImages (File inputDirectory, Filter filter, File outputDirectory,String filename ){
 
         for (File f: inputDirectory.listFiles()){
             if(f.getName().endsWith(".jpeg")) {
@@ -23,7 +23,7 @@ public class App extends Conf{
                 chemin = f.getAbsolutePath();
 
                 try {
-                    filter.process(chemin, outputDirectory);
+                    filter.process(chemin, outputDirectory,filename);
                 }catch (Exception e){
                     e.getMessage();
                 }
@@ -61,21 +61,34 @@ public class App extends Conf{
             System.out.println("Filters =" + subTypesOf);
 
         }
+        String inputArg = "input"; // Valeur par défaut du répertoire d'entrée
+        String outputArg = "output"; // Valeur par défaut du répertoire de sortie
+        String filterArg = "Zeteam";
+        String filename = "imagefilter.log";
 
 
 
         CommandLineParser parser2 = new DefaultParser();
         CommandLine cmd = parser2.parse( options, args);
 
-        if(cmd.hasOption("configfile")){
-          String configArg = cmd.getOptionValue("configfile");
+        if(cmd.hasOption("configfile")) {
+            String configArg = cmd.getOptionValue("configfile");
             System.out.println(configArg);
-            File Conf = new File(configArg);
-            sample01(Conf.getAbsolutePath());
-
+            //  File Conf = new File(configArg);
+            Conf conf = new Conf(configArg);
+            if (conf.getInput() != null) {
+                inputArg = conf.getInput().getAbsolutePath();
+            }
+            if (conf.getOutput() != null) {
+                outputArg = conf.getOutput().getAbsolutePath();
+            }
+            if (conf.getFilters() != null) {
+                filterArg = conf.getFilters();
+            }
+            if (conf.getLogFile() != null) {
+                filename = conf.getLogFile().getAbsolutePath();
+            }
         }
-
-        String inputArg = "input"; // Valeur par défaut du répertoire d'entrée
 
         if(cmd.hasOption("i")){
             inputArg = cmd.getOptionValue("i");
@@ -87,7 +100,7 @@ public class App extends Conf{
         CommandLineParser parser1 = new DefaultParser();
         CommandLine cmd1 = parser1.parse(options,args);
 
-        String outputArg = "output"; // Valeur par défaut du répertoire de sortie
+
         if(cmd1.hasOption("o")){
             outputArg =cmd1.getOptionValue("o");
         }
@@ -102,27 +115,31 @@ public class App extends Conf{
             return;
         }
 
-        String filterArg = "test";
+
         Filter filter = null;
+        System.out.println("filtre=" +filterArg);
 /**
  *  Allows to identifies if the user has correctly entered the proposed program command
  */
         switch (filterArg){
-            case "blur":
+            case "Blur":
                 filter = new FilterBlur();
                 break;
-            case "dilatation":
+            case "Dilatation":
                 filter = new FilterDilatation();
                 break;
-            case "blackWhite":
+            case "BlackWhite":
                 filter = new FilterBlackWhite();
                 break;
-            case "test":
+            case "Zeteam":
                 filter = new FilterZeTeam();
                 break;
 
+            default:
+                System.out.println("unknown filter " + filterArg);
+
         }
-        App.applyFilterOnImages(input,filter, output);
+        App.applyFilterOnImages(input,filter,output,filename);
 
     }
 }

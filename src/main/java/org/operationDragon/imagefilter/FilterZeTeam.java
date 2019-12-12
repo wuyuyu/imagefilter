@@ -12,7 +12,7 @@ import java.io.File;
 
 public class FilterZeTeam implements Filter {
 
-    public Mat process(String imageName, File outputDirectory) throws FilterException {
+    public Mat process(String imageName, File outputDirectory,String filename) throws FilterException {
 
 
         File img = new File(imageName);
@@ -28,6 +28,9 @@ public class FilterZeTeam implements Filter {
 
         System.out.println(outputFile);
         opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), image);
+        LogWriter logger = new LogWriter();
+        logger.logToFile(imageName + " ZeTeam",filename);
         return image;
+
     }
 }

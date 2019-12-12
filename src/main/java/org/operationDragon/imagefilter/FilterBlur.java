@@ -17,7 +17,7 @@ public class FilterBlur implements Filter{
      * @throws FilterException
      */
     @Override
-    public Mat process(String imageName, File outputDirectory) throws FilterException{
+    public Mat process(String imageName, File outputDirectory,String filename) throws FilterException{
         File img = new File(imageName);
         Mat image = opencv_imgcodecs.imread(imageName);
         String outputPath = outputDirectory.getAbsolutePath();
@@ -34,7 +34,7 @@ public class FilterBlur implements Filter{
             System.out.println(outputFile);
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
             LogWriter logger = new LogWriter();
-            logger.logToFile(imageName + " FilterBlur");
+            logger.logToFile(imageName + " FilterBlur",filename);
 
             return result;
         }catch (Exception e){

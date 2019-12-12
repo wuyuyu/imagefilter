@@ -19,7 +19,7 @@ public class FilterDilatation implements Filter{
      * @throws FilterException
      */
     @Override
-    public Mat process(String imageName, File outputDirectory) throws FilterException{
+    public Mat process(String imageName, File outputDirectory,String filename) throws FilterException{
 
         File img = new File(imageName);
         System.out.println(img);
@@ -38,7 +38,7 @@ public class FilterDilatation implements Filter{
             System.out.println(outputFile);
             opencv_imgcodecs.imwrite(outputFile.getAbsolutePath(), result);
             LogWriter logger = new LogWriter();
-            logger.logToFile(imageName + " FilterDilatation");
+            logger.logToFile(imageName + " FilterDilatation", filename);
 
             return result;
 

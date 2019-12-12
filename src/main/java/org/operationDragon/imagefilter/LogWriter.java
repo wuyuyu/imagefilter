@@ -6,11 +6,10 @@ import java.io.IOException;
 
 public class LogWriter {
 
-
-    void logToFile(String message) {
+    void logToFile(String message,String filename ) {
 
         try {
-            File f = new File("imagefilter.log");
+            File f = new File(filename);
             FileWriter fileWriter = new FileWriter(f, true);
             fileWriter.write(message + "\n");
             fileWriter.close();
