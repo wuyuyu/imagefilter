@@ -115,5 +115,7 @@ public class App extends Conf{
                 break;
         }
         App.applyFilterOnImages(input,filter, output);
+        FilterZeTeam test = new FilterZeTeam();
+        test.process("dragon.jpeg",output);
     }
 }

@@ -19,7 +19,7 @@ public class FilterBlackWhite implements Filter{
      */
     @Override
     public Mat process(String imageName, File outputDirectory) throws FilterException {
-        File img = new File(String.valueOf(imageName));
+        File img = new File(imageName);
         Mat image = opencv_imgcodecs.imread(img.getAbsolutePath());
         String outputPath = outputDirectory.getAbsolutePath();
 
