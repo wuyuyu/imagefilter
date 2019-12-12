@@ -1,10 +1,8 @@
 package org.operationDragon.imagefilter;
 
 import org.apache.commons.cli.*;
-import org.reflections.Reflections;
 
 import java.io.File;
-import java.util.Set;
 
 public class App {
 
@@ -14,6 +12,8 @@ public class App {
      * @param inputDirectory : directory where input images are stored
      * @param filter : filter to apply
      * @param outputDirectory : directory where to put filtered images
+     * @param filename :
+     *
      */
     static void applyFilterOnImages (File inputDirectory, Filter filter, File outputDirectory,String filename ){
 
@@ -45,83 +45,57 @@ public class App {
         Options options = new Options();
         options.addOption("i",true,"input directory");
         options.addOption("o",true,"output directory");
+        options.addOption("f",true,"filter to apply");
         options.addOption("h",false,"help");
         options.addOption("configfile",true,"config file");
         options.addOption("listFilter",false,"list of filters");
+        Conf conf = new Conf("input","output","Dilatation","imagefilter.log");
+
+        System.out.printf("default filter to apply=" + conf.getFilters() + "\n");
 
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cmd2 = parser.parse( options, args);
+        CommandLine cmd = parser.parse( options, args);
 
-        if(cmd2.hasOption("listFilter")){
-            Reflections reflections = new Reflections();
-
-            Set<Class<? extends Filter>> subTypesOf = reflections.getSubTypesOf(Filter.class);
-
-            System.out.println("Filters =" + subTypesOf);
-
+        if(cmd.hasOption("listFilter")){
+//            Reflections reflections = new Reflections();
+//
+//            Set<Class<? extends Filter>> subTypesOf = reflections.getSubTypesOf(Filter.class);
+//
+//            System.out.println("Filters =" + subTypesOf.toString());
+//            return;
         }
-        String inputArg = "input"; // Valeur par défaut du répertoire d'entrée
-        String outputArg = "output"; // Valeur par défaut du répertoire de sortie
-        String filterArg = "Zeteam";
-        String filename = "imagefilter.log";
 
-
-
-        CommandLineParser parser2 = new DefaultParser();
-        CommandLine cmd = parser2.parse( options, args);
 
         if(cmd.hasOption("configfile")) {
             String configArg = cmd.getOptionValue("configfile");
-            System.out.println(configArg);
-            //  File Conf = new File(configArg);
-            Conf conf = new Conf(configArg);
-            if (conf.getInput() != null) {
-                inputArg = conf.getInput().getAbsolutePath();
-            }
-            if (conf.getOutput() != null) {
-                outputArg = conf.getOutput().getAbsolutePath();
-            }
-            if (conf.getFilters() != null) {
-                filterArg = conf.getFilters();
-            }
-            if (conf.getLogFile() != null) {
-                filename = conf.getLogFile().getAbsolutePath();
-            }
+            conf.loadFile(configArg);
         }
 
         if(cmd.hasOption("i")){
-            inputArg = cmd.getOptionValue("i");
+            conf.setInput(new File(cmd.getOptionValue("i")));
         }
 
-
-        File input = new File(inputArg);
-
-        CommandLineParser parser1 = new DefaultParser();
-        CommandLine cmd1 = parser1.parse(options,args);
-
-
-        if(cmd1.hasOption("o")){
-            outputArg =cmd1.getOptionValue("o");
+        if(cmd.hasOption("o")){
+            conf.setOutput(new File(cmd.getOptionValue("o")));
         }
 
+        if(cmd.hasOption("f")){
+            conf.setFilters(cmd.getOptionValue("f"));
+        }
 
-        File output = new File(outputArg);
-
-
-        if(cmd1.hasOption("h")){
+        if(cmd.hasOption("h")){
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("App", "", options, "", true);
             return;
         }
 
-
         Filter filter = null;
-        System.out.println("filtre=" +filterArg);
 /**
  *  Allows to identifies if the user has correctly entered the proposed program command
  */
-        switch (filterArg){
+        System.out.printf("filter to apply=" + conf.getFilters());
+        switch (conf.getFilters()){
             case "Blur":
                 filter = new FilterBlur();
                 break;
@@ -136,10 +110,10 @@ public class App {
                 break;
 
             default:
-                System.out.println("unknown filter " + filterArg);
+                System.out.println("unknown filter " + conf.getFilters());
 
         }
-        App.applyFilterOnImages(input,filter,output,filename);
+        App.applyFilterOnImages(conf.getInput(),filter,conf.getOutput(),conf.getLogFile().getAbsolutePath());
 
     }
 }

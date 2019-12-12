@@ -47,4 +47,9 @@ public class FilterDilatation implements Filter{
         }
     }
 }
-
+/*
+inputDir=
+        outputDir=
+        logFile=
+        filters=
+        */
