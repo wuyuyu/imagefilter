@@ -1,10 +1,14 @@
 package org.operationDragon.imagefilter;
 
 import org.apache.commons.cli.*;
+import org.reflections.Reflections;
 
 import java.io.File;
+import java.util.Set;
 
-public class App extends JavaCVHelper{
+public class App extends Conf{
+
+
     /**
      * filters a document set into a file
      * @param input : directory where input images are stored
@@ -33,6 +37,8 @@ public class App extends JavaCVHelper{
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+
+
 /**
  *  Allows to have interface in command line to access image folders
  */
@@ -40,18 +46,37 @@ public class App extends JavaCVHelper{
         options.addOption("i",true,"input directory");
         options.addOption("o",true,"output directory");
         options.addOption("h",false,"help");
-
-
+        options.addOption("configfile",true,"config file");
+        options.addOption("listFilter",false,"list of filters");
 
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = parser.parse( options, args);
+        CommandLine cmd2 = parser.parse( options, args);
+
+        if(cmd2.hasOption("listFilter")){
+            Reflections reflections = new Reflections("org.operationDragon.imageFilter");
+
+            Set<Class<? extends Filter>> subTypesOf = reflections.getSubTypesOf(Filter.class);
+            System.out.println("Filters =" + subTypesOf);
+
+        }
+
+
+
+        CommandLineParser parser2 = new DefaultParser();
+        CommandLine cmd = parser2.parse( options, args);
+
+        if(cmd.hasOption("configfile")){
+          String configArg = cmd.getOptionValue("configfile");
+            sample01(configArg);
+        }
 
         String inputArg = "input"; // Valeur par défaut du répertoire d'entrée
 
         if(cmd.hasOption("i")){
             inputArg = cmd.getOptionValue("i");
         }
+
 
         File input = new File(inputArg);
 
