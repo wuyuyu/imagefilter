@@ -11,7 +11,7 @@ public class App extends Conf{
 
     /**
      * filters a document set into a file
-     * @param input : directory where input images are stored
+     * @param inputDirectory : directory where input images are stored
      * @param filter : filter to apply
      * @param outputDirectory : directory where to put filtered images
      */
@@ -98,7 +98,7 @@ public class App extends Conf{
             return;
         }
 
-        String filterArg = "blackWhite";
+        String filterArg = "test";
         Filter filter = null;
 /**
  *  Allows to identifies if the user has correctly entered the proposed program command
@@ -113,9 +113,12 @@ public class App extends Conf{
             case "blackWhite":
                 filter = new FilterBlackWhite();
                 break;
+            case "test":
+                filter = new FilterZeTeam();
+                break;
+
         }
         App.applyFilterOnImages(input,filter, output);
-        FilterZeTeam test = new FilterZeTeam();
-        test.process("dragon.jpeg",output);
+
     }
 }
