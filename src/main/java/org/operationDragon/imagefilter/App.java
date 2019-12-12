@@ -54,9 +54,10 @@ public class App extends Conf{
         CommandLine cmd2 = parser.parse( options, args);
 
         if(cmd2.hasOption("listFilter")){
-            Reflections reflections = new Reflections("org.operationDragon.imageFilter");
+            Reflections reflections = new Reflections();
 
             Set<Class<? extends Filter>> subTypesOf = reflections.getSubTypesOf(Filter.class);
+
             System.out.println("Filters =" + subTypesOf);
 
         }
@@ -68,7 +69,10 @@ public class App extends Conf{
 
         if(cmd.hasOption("configfile")){
           String configArg = cmd.getOptionValue("configfile");
-            sample01(configArg);
+            System.out.println(configArg);
+            File Conf = new File(configArg);
+            sample01(Conf.getAbsolutePath());
+
         }
 
         String inputArg = "input"; // Valeur par défaut du répertoire d'entrée
