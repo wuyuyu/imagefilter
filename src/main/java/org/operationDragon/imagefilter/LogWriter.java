@@ -4,8 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/
 public class LogWriter {
-
+    /**
+     * Function that allows to write in a file
+     * @param message string message
+     * @param filename file's name where to write
+     */
     void logToFile(String message,String filename ) {
 
         try {

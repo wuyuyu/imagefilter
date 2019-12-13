@@ -13,8 +13,10 @@ public class FilterBlackWhite implements Filter{
 
     /**
      * This method is used to filter an image in black and white and store it in the outPut file
-     * @param imageName
-     * @return
+     * @param imageName name of the image
+     * @param outputDirectory output file
+     * @param filename name of the log's file
+     * @return an processed image
      * @throws FilterException
      */
     @Override

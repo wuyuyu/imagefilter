@@ -13,9 +13,11 @@ import static org.bytedeco.opencv.global.opencv_imgproc.getStructuringElement;
 public class FilterDilatation implements Filter{
 
     /**
-     * This method filters an image by dilating the pixels and stores it in outPut.
-     * @param imageName
-     * @return
+     * This method is used to filter an image with a dilatation and store it in the outPut file
+     * @param imageName name of the image
+     * @param outputDirectory output file
+     * @param filename name of the log's file
+     * @return an processed image
      * @throws FilterException
      */
     @Override
@@ -31,7 +33,6 @@ public class FilterDilatation implements Filter{
             Mat element = getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
             dilate(image, result, element);
 
-            /* Enregistrement dans fichier de sortie */
             String [] name = img.getName().split("\\.");
             String outputName = name[0] + "_dilate." + name[1];
             File outputFile = new File(outputPath, outputName);
@@ -47,9 +48,3 @@ public class FilterDilatation implements Filter{
         }
     }
 }
-/*
-inputDir=
-        outputDir=
-        logFile=
-        filters=
-        */

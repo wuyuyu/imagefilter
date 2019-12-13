@@ -11,6 +11,14 @@ import java.io.File;
 
 
 public class FilterZeTeam implements Filter {
+    /**
+     * This method is used to write on a image and store it in the outPut file
+     * @param imageName name of the image
+     * @param outputDirectory output file
+     * @param filename name of the log's file
+     * @return an processed image
+     * @throws FilterException
+     */
 
     public Mat process(String imageName, File outputDirectory,String filename) throws FilterException {
 

@@ -8,11 +8,11 @@ public class App {
 
 
     /**
-     * filters a document set into a file
+     * filters all images of a directory
      * @param inputDirectory : directory where input images are stored
      * @param filter : filter to apply
      * @param outputDirectory : directory where to put filtered images
-     * @param filename :
+     * @param filename : name of the log's file
      *
      */
     static void applyFilterOnImages (File inputDirectory, Filter filter, File outputDirectory,String filename ){
@@ -58,6 +58,12 @@ public class App {
         CommandLine cmd = parser.parse( options, args);
 
         if(cmd.hasOption("listFilter")){
+            System.out.println("FilterBlackWhite");
+            System.out.println("FilterBlur");
+            System.out.println("FilterDilatation");
+            System.out.println("FilterZeTeam");
+            return;
+
 //            Reflections reflections = new Reflections();
 //
 //            Set<Class<? extends Filter>> subTypesOf = reflections.getSubTypesOf(Filter.class);
@@ -90,10 +96,11 @@ public class App {
             return;
         }
 
-        Filter filter = null;
+
 /**
  *  Allows to identifies if the user has correctly entered the proposed program command
  */
+        Filter filter = null;
         System.out.printf("filter to apply=" + conf.getFilters());
         switch (conf.getFilters()){
             case "Blur":
@@ -105,7 +112,7 @@ public class App {
             case "BlackWhite":
                 filter = new FilterBlackWhite();
                 break;
-            case "Zeteam":
+            case "ZeTeam":
                 filter = new FilterZeTeam();
                 break;
 

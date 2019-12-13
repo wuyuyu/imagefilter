@@ -41,7 +41,6 @@ public class Conf{
     }
 
     public String getFilters() {
-        System.out.println("filtretest="+filters);
         return filters;
     }
 
@@ -66,13 +65,16 @@ public class Conf{
         filters = filterName;
     }
 
+    /**
+     * Function that allows to update config from a configFile
+     * @param configFile name of the configFile
+     * @throws IOException
+     */
     public void loadFile(String configFile)throws IOException{
         System.out.println("configFile=" + configFile);
         Wini ini = new Wini(new File(configFile));
         File in = ini.get("Filter", "inputDir", File.class);
-      //  System.out.println("in=["+in.getName() + "]");
         if(in != null){
-            System.out.println("is different de null");
             input = in;
         }
        File out = ini.get("Filter", "outputDir", File.class);
@@ -83,7 +85,6 @@ public class Conf{
         if(log != null) {
             logFile = log;
         }
-
        String fil = ini.get("Filter", "filters", String.class);
         if(fil != null){
             filters = fil;
