@@ -49,7 +49,7 @@ public class App {
         options.addOption("h",false,"help");
         options.addOption("configfile",true,"config file");
         options.addOption("listFilter",false,"list of filters");
-        Conf conf = new Conf("input","output","Dilatation","imagefilter.log");
+        Conf conf = new Conf("input","output","ZeTeam","imagefilter.log");
 
         System.out.printf("default filter to apply=" + conf.getFilters() + "\n");
 
@@ -101,7 +101,7 @@ public class App {
  *  Allows to identifies if the user has correctly entered the proposed program command
  */
         Filter filter = null;
-        System.out.printf("filter to apply=" + conf.getFilters());
+      //  System.out.printf("filter to apply=" + conf.getFilters());
         switch (conf.getFilters()){
             case "Blur":
                 filter = new FilterBlur();
@@ -121,6 +121,9 @@ public class App {
 
         }
         App.applyFilterOnImages(conf.getInput(),filter,conf.getOutput(),conf.getLogFile().getAbsolutePath());
+        filter = new FilterBlur();
+        filter.process("input2/dragonmignon.jpeg",new File("output"),"log.log");
+
 
     }
 }
